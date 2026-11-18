@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATHORIK - Smart Retail & Wholesale Management System</title>
+    <!-- Tailwind CSS CDN untuk kemudahan styling responsif HP -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050507',
+                        goldPrimary: '#D4AF37',
+                        goldLight: '#F3E5AB',
+                        goldDark: '#AA771C',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050507;
+            color: #F3E5AB;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .glass-card {
+            background: rgba(18, 18, 22, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+        }
+        .gold-glow {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4">
+
+    <!-- HEADER VERTICAL MOBILE (Black-Gold Glassmorphism) -->
+    <header class="w-full max-w-md mx-auto glass-card rounded-2xl p-4 mb-4 gold-glow">
+        <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">👑</span>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider text-goldPrimary">SATHORIK</h1>
+                    <p class="text-xs text-gray-400">Smart Retail & Wholesale</p>
+                </div>
+            </div>
+            <span class="px-2.5 py-1 bg-amber-500/20 border border-goldPrimary text-goldPrimary text-xs rounded-full font-semibold animate-pulse">
+                Trial 7 Hari
+            </span>
+        </div>
+        <!-- Quick Palette & Status -->
+        <div class="text-xs text-gray-300 border-t border-goldPrimary/20 pt-2 flex justify-between items-center">
+            <span>Status Sistem: <strong class="text-green-400">Aktif & Secure</strong></span>
+            <span>Versi: 1.0.0-PRO</span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER (Pintu Masuk 3 Pihak) -->
+    <main class="w-full max-w-md mx-auto flex-1 flex flex-col justify-center space-y-4">
+        
+        <div class="glass-card rounded-2xl p-6 gold-glow text-center">
+            <h2 class="text-xl font-bold text-goldPrimary mb-2">Pilih Portal Akses</h2>
+            <p class="text-xs text-gray-300 mb-6">Silakan pilih hak akses sesuai peran Anda di dalam ekosistem SATHORIK.</p>
+
+            <div class="space-y-3">
+                <!-- Tombol Portal Creator -->
+                <button onclick="bukaPortal('creator')" class="w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-yellow-500 text-darkBg font-bold rounded-xl shadow-lg hover:opacity-90 transition active:scale-95 flex items-center justify-center space-x-2">
+                    <span>👑</span>
+                    <span>Portal Creator (Pembuat)</span>
+                </button>
+
+                <!-- Tombol Portal Pedagang -->
+                <button onclick="bukaPortal('pedagang')" class="w-full py-3 px-4 glass-card border border-goldPrimary/50 text-goldLight font-semibold rounded-xl hover:bg-goldPrimary/10 transition active:scale-95 flex items-center justify-center space-x-2">
+                    <span>🏪</span>
+                    <span>Portal Pedagang / Warung</span>
+                </button>
+
+                <!-- Tombol Portal Pembeli -->
+                <button onclick="bukaPortal('pembeli')" class="w-full py-3 px-4 bg-zinc-800 border border-zinc-700 text-gray-200 font-semibold rounded-xl hover:bg-zinc-700 transition active:scale-95 flex items-center justify-center space-x-2">
+                    <span>🛍️</span>
+                    <span>Portal Pembeli / Belanja</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- DINAMIC MODAL / PANEL AREA -->
+        <div id="panelArea" class="hidden glass-card rounded-2xl p-6 gold-glow">
+            <!-- Konten login/portal akan dimuat secara dinamis via JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full max-w-md mx-auto text-center py-3 text-xs text-gray-500">
+        &copy; 2026 SATHORIK System. Hak Cipta Dilindungi (Pak Syamsudin Budiansyah).
+    </footer>
+
+    <!-- SCRIPT PENGELOLA PORTAL -->
+    <script>
+        function bukaPortal(peran) {
+            const panel = document.getElementById('panelArea');
+            panel.classList.remove('hidden');
+            
+            if (peran === 'creator') {
+                panel.innerHTML = `
+                    <h3 class="text-lg font-bold text-goldPrimary mb-3">Login Creator (Pusat)</h3>
+                    <p class="text-xs text-gray-300 mb-4">Masukkan kredensial master untuk mengelola lisensi dan kode aktivasi pedagang.</p>
+                    <div class="space-y-3">
+                        <input type="text" id="usernameCreator" placeholder="Username (cth: Pusat83)" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-goldPrimary">
+                        <input type="password" id="passwordCreator" placeholder="Password Master" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-goldPrimary">
+                        <button onclick="prosesLoginCreator()" class="w-full py-2.5 bg-goldPrimary text-darkBg font-bold rounded-xl text-sm shadow">Masuk Panel Creator</button>
+                        <button onclick="tutupPanel()" class="w-full py-1 text-xs text-gray-400 hover:text-white">Tutup</button>
+                    </div>
+                `;
+            } else if (peran === 'pedagang') {
+                panel.innerHTML = `
+                    <h3 class="text-lg font-bold text-goldPrimary mb-3">Login Pedagang / Warung</h3>
+                    <p class="text-xs text-gray-300 mb-4">Masukkan No. Ponsel terdaftar atau Kode Aktivasi dari Pembuat.</p>
+                    <div class="space-y-3">
+                        <input type="tel" id="noPonsel" placeholder="No. Ponsel (cth: 08123456789)" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-goldPrimary">
+                        <button onclick="prosesLoginPedagang()" class="w-full py-2.5 bg-goldPrimary text-darkBg font-bold rounded-xl text-sm shadow">Masuk Warung POS</button>
+                        <button onclick="tutupPanel()" class="w-full py-1 text-xs text-gray-400 hover:text-white">Tutup</button>
+                    </div>
+                `;
+            } else if (peran === 'pembeli') {
+                panel.innerHTML = `
+                    <h3 class="text-lg font-bold text-goldPrimary mb-3">Portal Belanja Pelanggan</h3>
+                    <p class="text-xs text-gray-300 mb-4">Akses katalog produk, eceran, grosir, dan keranjang belanja online.</p>
+                    <div class="space-y-3">
+                        <button onclick="alert('Membuka Katalog Toko Terdekat...')" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl text-sm shadow">Lihat Katalog Sembako</button>
+                        <button onclick="tutupPanel()" class="w-full py-1 text-xs text-gray-400 hover:text-white">Tutup</button>
+                    </div>
+                `;
+            }
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function tutupPanel() {
+            document.getElementById('panelArea').classList.add('hidden');
+        }
+
+        function prosesLoginCreator() {
+            const u = document.getElementById('usernameCreator').value;
+            const p = document.getElementById('passwordCreator').value;
+            if (u === 'Pusat83' && p === 'Attala83') {
+                alert('Login Creator Berhasil! Selamat datang, Pembuat.');
+                // Di tahap berikutnya, area ini akan merender Dashboard Master Creator
+            } else {
+                alert('Username atau Password Creator salah!');
+            }
+        }
+
+        function prosesLoginPedagang() {
+            const hp = document.getElementById('noPonsel').value;
+            if (hp.length >= 10) {
+                alert('Akses Warung Diterima! Memuat Kasir POS & Data Produk...');
+                // Di tahap berikutnya, area ini akan merender Kasir POS & Manajemen Stok
+            } else {
+                alert('Masukkan No. Ponsel yang valid (minimal 10 digit).');
+            }
+        }
+    </script>
+</body>
+</html>
